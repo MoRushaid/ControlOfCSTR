@@ -20,7 +20,7 @@ p.A  = 1221;                % Area [ft^2]
 p.Tj = 60;                  % Jacket Temperature [oF] 
 
 %% Initial Conditions
-x = [0.1 30];               % x(1) = Ca   Concentration [lbmol/ft^3] 
+x = [0.1 40];               % x(1) = Ca   Concentration [lbmol/ft^3] 
                             % x(2) = T     Temperature [oF] 
 tspan = [0 3];
 

@@ -1,15 +1,14 @@
-function [sys,x0] = reactor_sfcn(t, x, u, flag, Cinit, Tinit)
+function [sys,x0] = reactor_sfcn(t, x, u, flag)
+
+% Simulink interface to reactor_simu.m     
 %
-%  Simulink interface to reactor_simu.m     
+% Input arguments :    t    -   time in [min].
+%                      x    -   states
+%                      u    -   inputs
+%                      flag -   indicator  of the Simulink request 
 %
-% Input arguments :    t    - time in [min].
-%                      x    -  states
-%                      u    -  inputs
-%                      flag -  indicator  of the Simulink request 
-%
-% Output arguments :  
-%            sys   - results requested by Simulink, varies for each flag#
-%            x0    -  initial conditions
+% Output arguments :   sys  -   results requested by Simulink, varies for each flag#
+%                      x0   -   initial conditions
 %--------------------------------------------------------------
 % depending on flag # , sys holds different information :
 %
@@ -29,16 +28,17 @@ function [sys,x0] = reactor_sfcn(t, x, u, flag, Cinit, Tinit)
 %            6th array,f :  the number of sample times
             
 if abs(flag) == 1
-  % Return state derivatives.
+  % Return state derivatives
   sys =  reactor_simu(t, x, u);
 
 elseif abs(flag) == 3
-  % Return system outputs.
+  % Return system outputs
   sys = x;
 
 elseif flag == 0
   % Initialize the system
-  x0 = [Cinit Tinit] ;
+  load('steadystate_cond.mat')
+  x0 = [Ca T] ;
   sys = [2, 0, 2, 1, 0, 1];
 
 else
